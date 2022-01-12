@@ -1,0 +1,79 @@
+﻿@model BlogBase.Models.BlogPost
+@{
+    ViewData["Title"] = "Blog Posting erstellen";
+}
+
+<form asp-controller="BlogPost" asp-action="CreateEditBlogPost" enctype="multipart/form-data">
+
+        <h3> Lege einen neuen Blogeintrag an</h3>
+
+    <hr />
+
+        <div class="card">
+
+            <div class="card-header">
+                Editor
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col">
+                        <input class="form-control form-control-lg" asp-for="Title" type="text" placeholder="Trage einen Titel für deinen Blog ein" />
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col-6">
+                        <textarea id="blogContent" class="form-control form-control-lg" asp-for="PreviewText" style="height:130px" placeholder="Verfasse einen kurzen Text für die Vorschau auf der Startseite"></textarea>
+                    </div>
+
+                    <div class="col-6">
+
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col">
+                        <textarea id="blogContent" class="form-control form-control-lg" asp-for="Text" style="height:500px" placeholder="Verfasse den Inhalt deines Blogs"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col mt-3">
+
+                    </div>
+
+                    <div class="col-4">
+                        <p class="lead" style="margin-top: 10px" align="right">Lade ein Bild für die Startseite hoch</p>
+                    </div>
+
+                    <div class="col-5">
+                        <input class="form-control form-control-lg" type="file" aria-label="Large file input example">
+                    </div>
+
+
+                </div>
+
+                <div class="row mt-3">
+
+                    <div class="col" align="right">
+                        <button class="btn btn-primary btn-lg" type="submit">Speichern</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+</form>
+
+
+
