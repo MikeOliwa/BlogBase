@@ -1,4 +1,5 @@
-﻿using BlogBase.Models;
+﻿using BlogBase.Data;
+using BlogBase.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,13 +11,15 @@ using System.Threading.Tasks;
 namespace BlogBase.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger) {
+        private ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context) {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index() {
-            return View();
+            var allBlogPosts = _context.BlogPosts.ToList();
+            return View(allBlogPosts);
         }
 
         public IActionResult Privacy() {
