@@ -45,6 +45,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @*<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>*@
+    <script>var postJquery = [];</script>
+    <script>for (var i = 0; i < postJquery.length; i++) postJquery[i]();</script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

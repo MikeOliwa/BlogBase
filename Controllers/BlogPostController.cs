@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BlogBase.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace BlogBase.Controllers {
     public class BlogPostController : Controller {
@@ -18,9 +19,17 @@ namespace BlogBase.Controllers {
         }
 
         //called from form of BlogPostView
-        public IActionResult CreateEditBlogPost(BlogPost blogPost) {
+        public IActionResult CreateEditBlogPost(BlogPost blogPost, IFormFile picture) {
 
-            if(blogPost.Id == 0) {
+            if (picture != null) {
+                using (var ms = new System.IO.MemoryStream()) {
+                    picture.CopyTo(ms);
+                    var bytes = ms.ToArray();
+                    blogPost.Picture = bytes;
+                }
+            }
+
+            if (blogPost.Id == 0) {
                 //create new
                 blogPost.DateCreated = DateTime.Today;
                 blogPost.DateEdited = DateTime.Today;
@@ -36,5 +45,6 @@ namespace BlogBase.Controllers {
             _context.SaveChanges();
             return View("Index");
         }
+
     }
 }

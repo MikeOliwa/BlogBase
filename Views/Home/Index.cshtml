@@ -7,8 +7,6 @@
     <p class="lead">publish a blog and manage it's content</p>
 </div>
 
-<p>gsdhsdhjsdjhhhhhhhhhhhhhhhhhhhh</p>
-
     foreach (BlogPost blogPost in Model) {
         <div class="row mt-3">
 
@@ -18,8 +16,24 @@
 
             <div class="col-6">
                 <div class="card">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+                    <img id="@blogPost.Title" onclick="loadPicture(@blogPost.Id)" src="#" class="card-img-top"/>
+                    <script>
+                            function loadPicture(id) {
+                                $.ajax({
+                                type: 'GET',
+                                url: "@Url.Action("GetBlogPost")",
+                                data: { id: id },
+                                success: function (data) {
+                                    $('@blogPost.Title').attr('src', `data:image/png;base64,${data.picture}`);
+                                    debugger;
+                                     $("@blogPost.Title").load(window.location.href + " #blogPicture");
+                                    debugger;
+                                },
 
+                                });
+                            }
+
+                    </script>
                     <div class="card-body">
                         <h5 class="card-title">@blogPost.Title</h5>
                         <p class="card-text">@blogPost.PreviewText</p>
@@ -37,14 +51,27 @@
 
 }
 
-
-
-
-
 @section Scripts{
 
     <script>
+        @*function loadPicture(id) {
+         $.ajax({
+                   type: 'GET',
+                   url: "@Url.Action("GetBlogPost")",
+                   data: { id: id },
+             success: function (data) {
+                 $('@blogPost.Id').attr('src', `data:image/png;base64,${data.picture}`);
+                 debugger;
+                 $("@blogPost.Id").load(window.location.href + " #blogPicture");
+                 debugger;
+                },
 
+            });
+        }*@
+
+        function nothing() {
+
+        }
 
     </script>
 

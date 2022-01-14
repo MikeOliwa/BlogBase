@@ -30,5 +30,21 @@ namespace BlogBase.Controllers {
         public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        public IActionResult GetBlogPost(int id) {
+
+            if (id == 0) {
+                return BadRequest();
+            }
+
+            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            if (blogPost == null) {
+                return NotFound();
+            }
+
+            return Ok(blogPost);
+
+        }
     }
 }
