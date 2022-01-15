@@ -16,28 +16,21 @@
 
             <div class="col-6">
                 <div class="card">
-                    <img id="@blogPost.Title" onclick="loadPicture(@blogPost.Id)" src="#" class="card-img-top"/>
-                    <script>
-                            function loadPicture(id) {
-                                $.ajax({
-                                type: 'GET',
-                                url: "@Url.Action("GetBlogPost")",
-                                data: { id: id },
-                                success: function (data) {
-                                    $('@blogPost.Title').attr('src', `data:image/png;base64,${data.picture}`);
-                                    debugger;
-                                     $("@blogPost.Title").load(window.location.href + " #blogPicture");
-                                    debugger;
-                                },
+                    @if (blogPost.Picture != null) {
+                        <img id="blogPicture" class="blogImage card-img-top" src="data:image;base64,@System.Convert.ToBase64String(blogPost.Picture)" />
+                    }
+                    else {
+                        <img id="blogPicture" class="blogImage card-img-top" src="#" />
+                    }
 
-                                });
-                            }
-
-                    </script>
                     <div class="card-body">
                         <h5 class="card-title">@blogPost.Title</h5>
                         <p class="card-text">@blogPost.PreviewText</p>
-                        <a href="#" class="btn btn-primary">Lesen</a>
+                        <div class="row">
+                            <a class="btn btn-primary" asp-route-id="@blogPost.Id" asp-controller="BlogPost" asp-action="ReadBlog">Lesen</a>
+                            <a class="btn btn-secondary" asp-route-id="@blogPost.Id" asp-controller="BlogPost" asp-action="CreateEditBlog">Bearbeiten</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -54,25 +47,45 @@
 @section Scripts{
 
     <script>
-        @*function loadPicture(id) {
-         $.ajax({
-                   type: 'GET',
-                   url: "@Url.Action("GetBlogPost")",
-                   data: { id: id },
-             success: function (data) {
-                 $('@blogPost.Id').attr('src', `data:image/png;base64,${data.picture}`);
-                 debugger;
-                 $("@blogPost.Id").load(window.location.href + " #blogPicture");
-                 debugger;
-                },
+
+        @*$(document).ready(function () {
+            // Loop through each div element with the class box
+            @{int j = 0;}
+            $(".blogImage").each(function () {
+
+
+                @{List<BlogPost> bp = Model; }
+
+                debugger;
+                var elementId = this.attributes[0].value;
+                var counterId = @bp[j].Id
+                debugger;
+
+                loadPicture(counterId,elementId);
+                @{j = j + 1;}
+
+            });
+        });*@
+
+        @*function loadPicture(id, elementId) {
+             $.ajax({
+             type: 'GET',
+             url: "@Url.Action("GetBlogPost")",
+             data: { id: id },
+                 success: function (data) {
+                     $('#' + elementId).attr('src', `data:image/png;base64,${data.picture}`);
+                 },
 
             });
         }*@
 
-        function nothing() {
-
-        }
 
     </script>
+
+<style>
+/*    .blogImage{
+
+    }*/
+</style>
 
 }

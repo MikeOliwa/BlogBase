@@ -1,0 +1,12 @@
+﻿@model BlogPost;
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div>
+    <h1 style="margin-bottom:1cm;">@Model.Title</h1>
+
+    <p style="margin-bottom:1cm;">@Model.Text</p>
+
+    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Picture)" />
+</div>

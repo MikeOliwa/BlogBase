@@ -39,11 +39,43 @@ namespace BlogBase.Controllers {
             }
             else {
                 //edit existing
+                var blogPost_existing = _context.BlogPosts.SingleOrDefault(x => x.Id == blogPost.Id);
 
+                blogPost_existing.Title = blogPost.Title;
+                blogPost_existing.Text = blogPost.Text;
+                blogPost_existing.PreviewText = blogPost.PreviewText;
+                blogPost_existing.DateEdited = DateTime.Today;
             }
 
             _context.SaveChanges();
-            return View("Index");
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult CreateEditBlog(int id) {
+            if (id == 0) {
+                return BadRequest();
+            }
+
+            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            if (blogPost == null) {
+                return NotFound();
+            }
+
+            return View("Index",blogPost);
+        }
+
+        public IActionResult ReadBlog(int id) {
+
+            if (id == 0) {
+                return BadRequest();
+            }
+
+            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            if (blogPost == null) {
+                return NotFound();
+            }
+
+            return View(blogPost);
         }
 
     }
