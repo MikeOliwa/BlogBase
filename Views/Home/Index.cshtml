@@ -4,7 +4,7 @@
 
 <div class="text-center">
     <h1 class="display-3">BlogBase</h1>
-    <p class="lead">publish a blog and manage it's content</p>
+    <p class="lead">Erstelle und Verwalte deinen eigenen Blog</p>
 </div>
 
     foreach (BlogPost blogPost in Model) {
@@ -28,7 +28,6 @@
                         <p class="card-text">@blogPost.PreviewText</p>
                         <div class="row">
                             <a class="btn btn-primary" asp-route-id="@blogPost.Id" asp-controller="BlogPost" asp-action="ReadBlog">Lesen</a>
-                            <a class="btn btn-secondary" asp-route-id="@blogPost.Id" asp-controller="BlogPost" asp-action="CreateEditBlog">Bearbeiten</a>
                         </div>
 
                     </div>

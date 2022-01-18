@@ -14,9 +14,6 @@ namespace BlogBase.Controllers {
         public BlogPostController(Data.ApplicationDbContext context) {
             _context = context;
         }
-        public IActionResult Index() {
-            return View();
-        }
 
         //called from form of BlogPostView
         public IActionResult CreateEditBlogPost(BlogPost blogPost, IFormFile picture) {
@@ -48,7 +45,25 @@ namespace BlogBase.Controllers {
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBlog(int id) {
+            if (id == 0) return BadRequest();
+            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            if (blogPost == null) {
+                return NotFound();
+            }
+
+            _context.BlogPosts.Remove(blogPost);
+            _context.SaveChanges();
+            return Ok();
+
+        }
+
+        public IActionResult Index() {
+            return View();
         }
 
         public IActionResult CreateEditBlog(int id) {
@@ -76,6 +91,11 @@ namespace BlogBase.Controllers {
             }
 
             return View(blogPost);
+        }
+
+        public IActionResult Manage() {
+            var allBlogPosts = _context.BlogPosts.ToList();
+            return View(allBlogPosts);
         }
 
 

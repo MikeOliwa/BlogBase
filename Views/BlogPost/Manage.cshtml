@@ -1,0 +1,93 @@
+﻿@model List<BlogBase.Models.BlogPost>;
+
+@{
+    ViewData["Title"] = "Blogs verwalten";
+}
+
+<h2>Verwalte deine Blogeinträge</h2>
+<hr />
+
+<p style="padding:0.1cm"></p>
+
+<a class="btn btn-primary" asp-controller="BlogPost" asp-action="Index">Blog erstellen</a>
+
+<p style="padding:0.2cm"></p>
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Autor</th>
+            <th>Aktion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (BlogPost blog in Model) {
+                <tr>
+                    <td>@blog.Title</td>
+                    <td>@blog.Author</td>
+                    <td><a class="btn btn-warning" asp-route-id="@blog.Id" asp-controller="BlogPost" asp-action="CreateEditBlog">Bearbeiten</a>
+                        <button class="btn btn-danger" id="deleteButton" onclick="onDeleteButtonPressed(@blog.Id)">Löschen</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+            });
+        });
+
+        function onDeleteButtonPressed(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //delete
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("DeleteBlog","BlogPost")",
+                        data: { id: id },
+                        success: function (msg) {
+
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            ).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+
+                        },
+                        error: function (msg) {
+
+                        }
+                    });
+
+
+
+                }
+            })
+
+        }
+
+    </script>
+}
