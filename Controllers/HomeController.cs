@@ -22,6 +22,11 @@ namespace BlogBase.Controllers {
             return View(allBlogPosts);
         }
 
+        public IActionResult Manage() {
+            var allBlogPosts = _context.BlogPosts.ToList();
+            return View(allBlogPosts);
+        }
+
         public IActionResult Privacy() {
             return View();
         }

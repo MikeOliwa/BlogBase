@@ -6,6 +6,10 @@
     <title>@ViewData["Title"] - BlogBase</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/path/to/cdn/bootstrap.min.css" />
+    <link rel="stylesheet" href="/path/to/bootstrap-side-modals.css" />
+
 </head>
 <body>
     <header>
@@ -47,6 +51,9 @@
     @*<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>*@
     <script>var postJquery = [];</script>
     <script>for (var i = 0; i < postJquery.length; i++) postJquery[i]();</script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="/path/to/cdn/jquery.slim.min.js"></script>
+    <script src="/path/to/cdn/bootstrap.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

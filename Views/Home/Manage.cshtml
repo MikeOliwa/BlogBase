@@ -1,0 +1,72 @@
+﻿@model List<BlogBase.Models.BlogPost>;
+
+@{
+    ViewData["Title"] = "Blogs verwalten";
+}
+
+<h2>Verwalte deine Blogeinträge.</h2>
+
+<p padding="30cm"></p>
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Autor</th>
+            <th>Aktion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (BlogPost blog in Model) {
+                <tr>
+                    <td>@blog.Title</td>
+                    <td>@blog.Author</td>
+                    <td><a class="btn btn-primary" asp-route-id="@blog.Id" asp-controller="BlogPost" asp-action="CreateEditBlog">Lesen</a></td>
+                    <td><button class="btn btn-danger" id="modalButton" data-toggle="modal" data-target="#left_modal">Löschen</button></td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Trigger Button -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#left_modal">
+    Left Side <a href="https://www.jqueryscript.net/tags.php?/Modal/">Modal</a> SM
+</button>
+
+<!-- Modal Window -->
+<div class="modal modal-left fade" id="left_modal" tabindex="-1" role="dialog" aria-labelledby="left_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Modal Content Here
+            </div>
+            <div class="modal-footer modal-footer-fixed">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+
+
+            $('#table_id').DataTable({
+            });
+        });
+
+    </script>
+}
