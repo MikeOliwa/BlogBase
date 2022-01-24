@@ -42,6 +42,8 @@ namespace BlogBase.Controllers {
                 blogPost_existing.Text = blogPost.Text;
                 blogPost_existing.PreviewText = blogPost.PreviewText;
                 blogPost_existing.DateEdited = DateTime.Today;
+                if(picture != null) blogPost_existing.Picture = blogPost.Picture;
+
             }
 
             _context.SaveChanges();
