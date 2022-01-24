@@ -36,7 +36,7 @@ namespace BlogBase.Controllers {
             }
             else {
                 //edit existing
-                var blogPost_existing = _context.BlogPosts.SingleOrDefault(x => x.Id == blogPost.Id);
+                var blogPost_existing = GetBlogPostById(blogPost.Id);
 
                 blogPost_existing.Title = blogPost.Title;
                 blogPost_existing.Text = blogPost.Text;
@@ -51,7 +51,7 @@ namespace BlogBase.Controllers {
         [HttpPost]
         public IActionResult DeleteBlog(int id) {
             if (id == 0) return BadRequest();
-            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            var blogPost = GetBlogPostById(id);
             if (blogPost == null) {
                 return NotFound();
             }
@@ -71,7 +71,7 @@ namespace BlogBase.Controllers {
                 return BadRequest();
             }
 
-            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            var blogPost = GetBlogPostById(id);
             if (blogPost == null) {
                 return NotFound();
             }
@@ -85,7 +85,7 @@ namespace BlogBase.Controllers {
                 return BadRequest();
             }
 
-            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            var blogPost = GetBlogPostById(id);
             if (blogPost == null) {
                 return NotFound();
             }
@@ -94,8 +94,18 @@ namespace BlogBase.Controllers {
         }
 
         public IActionResult Manage() {
-            var allBlogPosts = _context.BlogPosts.ToList();
+            var allBlogPosts = GetAllBlogPosts();
             return View(allBlogPosts);
+        }
+
+        public BlogPost GetBlogPostById(int id) {
+            var blogPost = _context.BlogPosts.SingleOrDefault(x => x.Id == id);
+            return blogPost;
+        }
+
+        public List<BlogPost> GetAllBlogPosts() {
+            var allBlogPosts = _context.BlogPosts.ToList();
+            return allBlogPosts;
         }
 
 
