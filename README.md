@@ -1,4 +1,4 @@
-# BlogBase - PROJEKT IN ARBEIT
+# BlogBase
 Auf ASP.NET Core basierendes WebApp-Gerüst zum Verwalten einer Blogging-Seite
 
 Vor dem ersten Start muss die Datenbank lokal erstellt werden!
